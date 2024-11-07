@@ -1,7 +1,10 @@
 const { validateToken } = require('../middleware/validate');
+const { validationErrorResponse } = require('../utility/response');
 
 function checkAuth(req, res, next) {
   const token = req.cookies.authToken; 
+  console.log(token);
+  
   if (!token) {
     return validationErrorResponse(res,error,"Please Register First",400)
   }
@@ -18,5 +21,5 @@ function checkAuth(req, res, next) {
 
 
 module.exports = {
-  checkAuth,
+  checkAuth
 };
