@@ -6,7 +6,7 @@ function checkAuth(req, res, next) {
   console.log(token);
   
   if (!token) {
-    return validationErrorResponse(res,error,"Please Register First",400)
+    return validationErrorResponse(res,"error","Please Register First",400)
   }
 
   try {

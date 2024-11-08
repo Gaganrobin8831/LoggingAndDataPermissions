@@ -1,4 +1,6 @@
+
 const { DataModel } = require("../models/MyData.models");
+const { HandleCreateActivityuLog } = require("../utility/createActivit");
 const { validationErrorResponse, successResponse } = require("../utility/response")
 
 async function HandleAddData(req,res) {
@@ -17,7 +19,11 @@ async function HandleAddData(req,res) {
             CVV:Cvv
         })
         await FullDetails.save()
+        HandleCreateActivityuLog(`create the New User Data`,req.user.role,FullDetails,"Add",req.user.name)
         successResponse(res,FullDetails,"Successfully Add Data",200)
+
+       
+
     } catch (error) {
         console.log(error);
         
@@ -28,18 +34,22 @@ async function HandleAddData(req,res) {
 
 async function HandleShowByPermissionRole(req,res) {
     const userId = req.params.id || req.query.id;
+    const userRole = req.user.role;
+    
    try {
 
     console.log(userId);
-    if (req.user.role=="Admin") {
+    if (userRole=="Admin") {
         const user = await DataModel.findById(userId)
-        successResponse(res,user,"success",200)
-    }else if(req.user.role == "Manager"){
+        successResponse(res,[user],"success",200)
+    }else if(userRole == "Manager"){
         const user = await DataModel.findById(userId).select('Name Email PhoneNo AccountNo');
-        successResponse(res,user,"success",200)
+        successResponse(res,[user],"success",200)
     }else{
-        const user = await User.findById(userId).select('Name Email -_id').lean();
-        successResponse(res,user,"success",200)
+        const user = await DataModel.findById(userId).select('Name Email')
+
+        HandleCreateActivityuLog(`Get the User Data`,userRole,user,"GET",req.user.name)
+        successResponse(res,[user],"success",200)
     }
     
    } catch (error) {

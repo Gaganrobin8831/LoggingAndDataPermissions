@@ -2,10 +2,19 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const ActivitySchema = new Schema({
-    ActivityReson: {
+    ActionPerfom: {
         type:String
     },
     role:{
+        type:String
+    },
+    newData:{
+        type:[]
+    },
+    ActionType:{
+        type:String
+    },
+    Name:{
         type:String
     }
    

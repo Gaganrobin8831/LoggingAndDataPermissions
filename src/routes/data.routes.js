@@ -5,9 +5,6 @@ const { HandleAddData, HandleShowByPermissionRole } = require('../controller/dat
 
 const dataRouter = express.Router(); 
 
-
-
-
 dataRouter.route('/data').post(checkAuth,HandleAddData)
 dataRouter.route('/showData/:id').get(checkAuth,HandleShowByPermissionRole)
 module.exports = dataRouter;

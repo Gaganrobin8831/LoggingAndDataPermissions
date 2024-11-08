@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const path = require('path');
 const { createTokenUser } = require('../middleware/validate');
 const { validationErrorResponse, successResponse } = require('../utility/response');
+const Activity = require('../models/activity.models');
 
 
 async function HandleRegester(req, res) {
@@ -71,6 +72,8 @@ async function HandleLogin(req, res) {
 
             role = "User"
             token = createTokenUser(user, role = role);
+           
+            HandleCreateActivityuLog(`create the New User`,role,user,newData,"Add",user.FullName)
         }
 
 
