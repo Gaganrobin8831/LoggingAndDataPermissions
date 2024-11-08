@@ -39,10 +39,10 @@ async function HandleShowByPermissionRole(req,res) {
    try {
     let user
     console.log(userId);
-    if (userRole=="Admin") {
+    if (userRole=="admin") {
          user = await DataModel.findById(userId)
         successResponse(res,[user],"success",200)
-    }else if(userRole == "Manager"){
+    }else if(userRole == "manager"){
        user = await DataModel.findById(userId).select('Name Email PhoneNo AccountNo');
         successResponse(res,[user],"success",200)
     }else{

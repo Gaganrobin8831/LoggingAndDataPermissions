@@ -7,10 +7,10 @@ const userrouter = express.Router();
 
 
 
-userrouter.route('/regester').post(HandleRegester)
+userrouter.route('/regester').post(HandleRegester) //regester
 
 
-userrouter.route('/Login').post(HandleLogin);
+userrouter.route('/Login').post(HandleLogin); //Login
 
 
 
