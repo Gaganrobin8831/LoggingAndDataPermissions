@@ -37,21 +37,21 @@ async function HandleShowByPermissionRole(req,res) {
     const userRole = req.user.role;
     
    try {
-
+    let user
     console.log(userId);
     if (userRole=="Admin") {
-        const user = await DataModel.findById(userId)
+         user = await DataModel.findById(userId)
         successResponse(res,[user],"success",200)
     }else if(userRole == "Manager"){
-        const user = await DataModel.findById(userId).select('Name Email PhoneNo AccountNo');
+       user = await DataModel.findById(userId).select('Name Email PhoneNo AccountNo');
         successResponse(res,[user],"success",200)
     }else{
-        const user = await DataModel.findById(userId).select('Name Email')
+        user = await DataModel.findById(userId).select('Name Email')
 
-        HandleCreateActivityuLog(`Get the User Data`,userRole,user,"GET",req.user.name)
+        
         successResponse(res,[user],"success",200)
     }
-    
+    HandleCreateActivityuLog(`Get the User Data`,userRole,user,"GET",req.user.name)
    } catch (error) {
     validationErrorResponse(res,error,"Something Went Wrong",400)
    } 
